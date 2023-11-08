@@ -1,13 +1,12 @@
 package com.zhiyunheyi.aibot.operate.facade.impl;
 
+import com.zhiyunheyi.aibot.domain.core.ApiResult;
+import com.zhiyunheyi.aibot.domain.core.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.core.Menu;
 import com.zhiyunheyi.aibot.operate.facade.IMenuCommandFacade;
-import com.zhiyunheyi.aibot.tsf.api.common.ApiResult;
-import com.zhiyunheyi.aibot.user.domain.Menu;
-import com.zhiyunheyi.aibot.user.domain.dto.MenuDTO;
-import com.zhiyunheyi.aibot.userservice.operate.service.MenuService;
-import com.zhiyunheyi.aibot.userservice.operate.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.facade.dto.MenuDTO;
+import com.zhiyunheyi.aibot.operate.service.IMenuService;
 import lombok.SneakyThrows;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +27,7 @@ import java.util.List;
 public class MenuCommandFacade implements IMenuCommandFacade {
 
     @Resource(name = "myMenuService")
-    private MenuService service;
+    private IMenuService service;
 
     @Override
     @SneakyThrows

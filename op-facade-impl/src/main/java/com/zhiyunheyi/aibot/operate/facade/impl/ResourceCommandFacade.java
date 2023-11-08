@@ -1,13 +1,12 @@
 package com.zhiyunheyi.aibot.operate.facade.impl;
 
+import com.zhiyunheyi.aibot.domain.core.ApiResult;
+import com.zhiyunheyi.aibot.domain.core.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.core.Resource;
 import com.zhiyunheyi.aibot.operate.facade.IResourceCommandFacade;
-import com.zhiyunheyi.aibot.tsf.api.common.ApiResult;
-import com.zhiyunheyi.aibot.user.domain.Resource;
-import com.zhiyunheyi.aibot.user.domain.dto.ResourceDTO;
-import com.zhiyunheyi.aibot.userservice.operate.service.ResourceService;
-import com.zhiyunheyi.aibot.userservice.operate.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.facade.dto.ResourceDTO;
+import com.zhiyunheyi.aibot.operate.service.IResourceService;
 import lombok.SneakyThrows;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,23 +27,23 @@ import java.util.List;
 public class ResourceCommandFacade implements IResourceCommandFacade {
 
     @javax.annotation.Resource
-    private ResourceService service;
+    private IResourceService service;
 
+    @Override
     @SneakyThrows
-    @PostMapping("/insert")
     public ApiResult<Boolean> insert(@RequestBody List<ResourceDTO> dtoList) {
         this.service.insert(AssembleUtil.listTo(dtoList, Resource.class));
         return ApiResult.ok(true);
     }
 
+    @Override
     @SneakyThrows
-    @PostMapping("/update")
     public ApiResult<Boolean> update(@RequestBody ResourceDTO dto) {
         this.service.update(AssembleUtil.to(dto, Resource.class));
         return ApiResult.ok(true);
     }
 
-    @PostMapping("/delete")
+    @Override
     public ApiResult<Boolean> delete(@RequestBody List<Long> ids) {
         this.service.delete(ids);
         return ApiResult.ok(true);

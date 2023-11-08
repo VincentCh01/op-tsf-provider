@@ -1,5 +1,9 @@
 package com.zhiyunheyi.aibot.operate.facade;
 
+import com.zhiyunheyi.aibot.domain.core.ApiResult;
+import com.zhiyunheyi.aibot.domain.core.PageResponse;
+import com.zhiyunheyi.aibot.operate.facade.dto.UserDTO;
+import com.zhiyunheyi.aibot.operate.facade.dto.request.UserCondition;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 

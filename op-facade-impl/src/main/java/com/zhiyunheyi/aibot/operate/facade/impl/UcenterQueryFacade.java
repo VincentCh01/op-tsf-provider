@@ -1,21 +1,18 @@
 package com.zhiyunheyi.aibot.operate.facade.impl;
 
+import com.zhiyunheyi.aibot.domain.core.ApiResult;
+import com.zhiyunheyi.aibot.domain.core.PageResponse;
+import com.zhiyunheyi.aibot.domain.core.utils.AssembleUtil;
 import com.zhiyunheyi.aibot.operate.facade.IUcenterQueryFacade;
-import com.zhiyunheyi.aibot.tsf.api.common.ApiResult;
-import com.zhiyunheyi.aibot.tsf.api.common.PageResponse;
-import com.zhiyunheyi.aibot.user.domain.dto.MenuDTO;
-import com.zhiyunheyi.aibot.user.domain.dto.ResourceDTO;
-import com.zhiyunheyi.aibot.user.domain.dto.RoleDTO;
-import com.zhiyunheyi.aibot.user.domain.dto.request.AccountCondition;
-import com.zhiyunheyi.aibot.user.domain.dto.request.AccountQuery;
-import com.zhiyunheyi.aibot.user.domain.dto.request.RoleCondition;
-import com.zhiyunheyi.aibot.user.domain.dto.response.MenuTree;
-import com.zhiyunheyi.aibot.user.domain.dto.response.ResourceTree;
-import com.zhiyunheyi.aibot.user.domain.dto.response.UserInfo;
-import com.zhiyunheyi.aibot.userservice.operate.application.UcenterApplication;
-import com.zhiyunheyi.aibot.userservice.operate.utils.AssembleUtil;
-import lombok.SneakyThrows;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.zhiyunheyi.aibot.operate.facade.dto.MenuDTO;
+import com.zhiyunheyi.aibot.operate.facade.dto.ResourceDTO;
+import com.zhiyunheyi.aibot.operate.facade.dto.RoleDTO;
+import com.zhiyunheyi.aibot.operate.facade.dto.request.AccountCondition;
+import com.zhiyunheyi.aibot.operate.facade.dto.request.AccountQuery;
+import com.zhiyunheyi.aibot.operate.facade.dto.request.RoleCondition;
+import com.zhiyunheyi.aibot.operate.facade.dto.response.MenuTree;
+import com.zhiyunheyi.aibot.operate.facade.dto.response.ResourceTree;
+import com.zhiyunheyi.aibot.operate.facade.dto.response.UserInfo;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,7 +32,7 @@ import java.util.List;
 public class UcenterQueryFacade implements IUcenterQueryFacade {
 
     @Resource
-    private UcenterApplication app;
+    private IUcenterApplication app;
 
     @Override
     public ApiResult<UserInfo> getByUserId(Long userId) {

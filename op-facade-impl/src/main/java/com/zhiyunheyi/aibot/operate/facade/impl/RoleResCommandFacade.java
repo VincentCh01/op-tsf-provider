@@ -1,8 +1,7 @@
 package com.zhiyunheyi.aibot.operate.facade.impl;
 
 import com.zhiyunheyi.aibot.operate.facade.IRoleResCommandFacade;
-import com.zhiyunheyi.aibot.userservice.operate.service.RoleResService;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.zhiyunheyi.aibot.operate.service.IRoleResService;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -19,5 +18,5 @@ import javax.annotation.Resource;
 public class RoleResCommandFacade implements IRoleResCommandFacade {
 
     @Resource
-    private RoleResService service;
+    private IRoleResService service;
 }

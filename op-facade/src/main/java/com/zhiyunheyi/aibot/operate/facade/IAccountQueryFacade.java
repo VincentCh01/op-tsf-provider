@@ -1,5 +1,9 @@
 package com.zhiyunheyi.aibot.operate.facade;
 
+import com.zhiyunheyi.aibot.domain.core.ApiResult;
+import com.zhiyunheyi.aibot.domain.core.PageResponse;
+import com.zhiyunheyi.aibot.operate.facade.dto.AccountDTO;
+import com.zhiyunheyi.aibot.operate.facade.dto.request.AccountCondition;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +23,6 @@ public interface IAccountQueryFacade {
     @GetMapping("/select")
     ApiResult<List<AccountDTO>> select(@RequestParam List<Long> ids);
 
-    @SneakyThrows
     @GetMapping("/page")
     ApiResult<PageResponse<AccountDTO>> page(AccountCondition condition, int pageNo, int pageSize);
 }

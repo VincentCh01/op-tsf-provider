@@ -1,15 +1,14 @@
 package com.zhiyunheyi.aibot.operate.facade.impl;
 
+import com.zhiyunheyi.aibot.domain.core.ApiResult;
+import com.zhiyunheyi.aibot.domain.core.PageResponse;
+import com.zhiyunheyi.aibot.domain.core.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.core.User;
 import com.zhiyunheyi.aibot.operate.facade.IUserQueryFacade;
-import com.zhiyunheyi.aibot.tsf.api.common.ApiResult;
-import com.zhiyunheyi.aibot.tsf.api.common.PageResponse;
-import com.zhiyunheyi.aibot.user.domain.User;
-import com.zhiyunheyi.aibot.user.domain.dto.UserDTO;
-import com.zhiyunheyi.aibot.user.domain.dto.request.UserCondition;
-import com.zhiyunheyi.aibot.userservice.operate.service.UserService;
-import com.zhiyunheyi.aibot.userservice.operate.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.facade.dto.UserDTO;
+import com.zhiyunheyi.aibot.operate.facade.dto.request.UserCondition;
+import com.zhiyunheyi.aibot.operate.service.IUserService;
 import lombok.SneakyThrows;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -27,7 +26,7 @@ import java.util.List;
 public class UserQueryFacade implements IUserQueryFacade {
 
     @Resource
-    private UserService service;
+    private IUserService service;
 
     @Override
     @SneakyThrows

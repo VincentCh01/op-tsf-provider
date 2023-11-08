@@ -1,16 +1,13 @@
 package com.zhiyunheyi.aibot.operate.facade.impl;
 
+import com.zhiyunheyi.aibot.domain.core.ApiResult;
+import com.zhiyunheyi.aibot.domain.core.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.core.Account;
 import com.zhiyunheyi.aibot.operate.facade.IUcenterCommandFacade;
-import com.zhiyunheyi.aibot.tsf.api.common.ApiResult;
-import com.zhiyunheyi.aibot.user.domain.Account;
-import com.zhiyunheyi.aibot.user.domain.dto.AccountDTO;
-import com.zhiyunheyi.aibot.user.domain.dto.request.RoleCreateReq;
-import com.zhiyunheyi.aibot.userservice.operate.application.UcenterApplication;
-import com.zhiyunheyi.aibot.userservice.operate.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.facade.dto.AccountDTO;
+import com.zhiyunheyi.aibot.operate.facade.dto.request.RoleCreateReq;
 import lombok.SneakyThrows;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -28,7 +25,7 @@ import java.util.List;
 public class UcenterCommandFacade implements IUcenterCommandFacade {
 
     @Resource
-    private UcenterApplication app;
+    private IUcenterApplication app;
 
     @Override
     @SneakyThrows

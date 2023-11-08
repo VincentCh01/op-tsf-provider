@@ -1,13 +1,12 @@
 package com.zhiyunheyi.aibot.operate.facade.impl;
 
+import com.zhiyunheyi.aibot.domain.core.ApiResult;
+import com.zhiyunheyi.aibot.domain.core.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.core.Account;
 import com.zhiyunheyi.aibot.operate.facade.IAccountCommandFacade;
-import com.zhiyunheyi.aibot.tsf.api.common.ApiResult;
-import com.zhiyunheyi.aibot.user.domain.Account;
-import com.zhiyunheyi.aibot.user.domain.dto.AccountDTO;
-import com.zhiyunheyi.aibot.userservice.operate.service.AccountService;
-import com.zhiyunheyi.aibot.userservice.operate.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.facade.dto.AccountDTO;
+import com.zhiyunheyi.aibot.operate.service.IAccountService;
 import lombok.SneakyThrows;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +27,7 @@ import java.util.List;
 public class AccountCommandFacade implements IAccountCommandFacade {
 
     @Resource
-    private AccountService service;
+    private IAccountService service;
 
     @Override
     @SneakyThrows

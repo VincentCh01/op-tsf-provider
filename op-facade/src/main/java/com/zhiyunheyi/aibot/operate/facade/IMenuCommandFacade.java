@@ -1,5 +1,7 @@
 package com.zhiyunheyi.aibot.operate.facade;
 
+import com.zhiyunheyi.aibot.domain.core.ApiResult;
+import com.zhiyunheyi.aibot.operate.facade.dto.MenuDTO;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 

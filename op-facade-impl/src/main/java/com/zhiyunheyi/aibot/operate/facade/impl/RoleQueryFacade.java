@@ -1,15 +1,14 @@
 package com.zhiyunheyi.aibot.operate.facade.impl;
 
+import com.zhiyunheyi.aibot.domain.core.ApiResult;
+import com.zhiyunheyi.aibot.domain.core.PageResponse;
+import com.zhiyunheyi.aibot.domain.core.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.core.Role;
 import com.zhiyunheyi.aibot.operate.facade.IRoleQueryFacade;
-import com.zhiyunheyi.aibot.tsf.api.common.ApiResult;
-import com.zhiyunheyi.aibot.tsf.api.common.PageResponse;
-import com.zhiyunheyi.aibot.user.domain.Role;
-import com.zhiyunheyi.aibot.user.domain.dto.RoleDTO;
-import com.zhiyunheyi.aibot.user.domain.dto.request.RoleCondition;
-import com.zhiyunheyi.aibot.userservice.operate.service.MyRoleService;
-import com.zhiyunheyi.aibot.userservice.operate.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.facade.dto.RoleDTO;
+import com.zhiyunheyi.aibot.operate.facade.dto.request.RoleCondition;
+import com.zhiyunheyi.aibot.operate.service.IRoleService;
 import lombok.SneakyThrows;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -26,8 +25,8 @@ import java.util.List;
 @RestController
 public class RoleQueryFacade implements IRoleQueryFacade {
 
-    @Resource(name = "myRoleService")
-    private MyRoleService service;
+    @Resource
+    private IRoleService service;
 
     @Override
     @SneakyThrows

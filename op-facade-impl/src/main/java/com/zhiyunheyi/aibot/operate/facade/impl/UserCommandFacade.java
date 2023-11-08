@@ -1,13 +1,12 @@
 package com.zhiyunheyi.aibot.operate.facade.impl;
 
+import com.zhiyunheyi.aibot.domain.core.ApiResult;
+import com.zhiyunheyi.aibot.domain.core.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.core.User;
 import com.zhiyunheyi.aibot.operate.facade.IUserCommandFacade;
-import com.zhiyunheyi.aibot.tsf.api.common.ApiResult;
-import com.zhiyunheyi.aibot.user.domain.User;
-import com.zhiyunheyi.aibot.user.domain.dto.UserDTO;
-import com.zhiyunheyi.aibot.userservice.operate.service.UserService;
-import com.zhiyunheyi.aibot.userservice.operate.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.facade.dto.UserDTO;
+import com.zhiyunheyi.aibot.operate.service.IUserService;
 import lombok.SneakyThrows;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +25,7 @@ import java.util.List;
 public class UserCommandFacade implements IUserCommandFacade {
 
     @Resource
-    private UserService service;
+    private IUserService service;
 
     @Override
     @SneakyThrows

@@ -1,5 +1,16 @@
 package com.zhiyunheyi.aibot.operate.facade;
 
+import com.zhiyunheyi.aibot.domain.core.ApiResult;
+import com.zhiyunheyi.aibot.domain.core.PageResponse;
+import com.zhiyunheyi.aibot.operate.facade.dto.MenuDTO;
+import com.zhiyunheyi.aibot.operate.facade.dto.ResourceDTO;
+import com.zhiyunheyi.aibot.operate.facade.dto.RoleDTO;
+import com.zhiyunheyi.aibot.operate.facade.dto.request.AccountCondition;
+import com.zhiyunheyi.aibot.operate.facade.dto.request.AccountQuery;
+import com.zhiyunheyi.aibot.operate.facade.dto.request.RoleCondition;
+import com.zhiyunheyi.aibot.operate.facade.dto.response.MenuTree;
+import com.zhiyunheyi.aibot.operate.facade.dto.response.ResourceTree;
+import com.zhiyunheyi.aibot.operate.facade.dto.response.UserInfo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

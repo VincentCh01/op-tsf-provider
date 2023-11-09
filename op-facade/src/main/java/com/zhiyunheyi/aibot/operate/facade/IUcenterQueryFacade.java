@@ -27,7 +27,7 @@ import java.util.List;
  * @Created Date: 2023/11/8 17:34
  * @Version: 1.0.0-SNAPSHOT
  */
-@FeignClient(name = "operate-user")
+@FeignClient(name = "operate-user", qualifier="ucenterQuery")
 @RequestMapping("/ucenter")
 public interface IUcenterQueryFacade {
     @GetMapping("/userInfo/getByUserId")

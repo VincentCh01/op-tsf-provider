@@ -8,6 +8,7 @@ import com.zhiyunheyi.aibot.operate.facade.IMenuQueryFacade;
 import com.zhiyunheyi.aibot.operate.facade.dto.MenuDTO;
 import com.zhiyunheyi.aibot.operate.facade.dto.request.MenuCondition;
 import com.zhiyunheyi.aibot.operate.service.IMenuService;
+import com.zhiyunheyi.aibot.operate.vo.MenuConditionVO;
 import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,13 +26,13 @@ import java.util.List;
 @RestController
 public class MenuQueryFacade implements IMenuQueryFacade {
 
-    @Resource(name = "myMenuService")
+    @Resource
     private IMenuService service;
 
     @Override
     @SneakyThrows
     public ApiResult<PageResponse<MenuDTO>> page(MenuCondition condition, int pageNo, int pageSize) {
-        PageResponse<Menu> page = this.service.page(condition, pageNo, pageSize);
+        PageResponse<Menu> page = this.service.page(AssembleUtil.to(condition, MenuConditionVO.class), pageNo, pageSize);
         List<MenuDTO> dtoList = AssembleUtil.listTo(page.getList(), MenuDTO.class);
         return ApiResult.ok(new PageResponse<>(pageNo, pageSize, page.getTotal(), dtoList));
     }

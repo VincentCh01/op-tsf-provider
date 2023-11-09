@@ -8,6 +8,7 @@ import com.zhiyunheyi.aibot.operate.facade.IUserQueryFacade;
 import com.zhiyunheyi.aibot.operate.facade.dto.UserDTO;
 import com.zhiyunheyi.aibot.operate.facade.dto.request.UserCondition;
 import com.zhiyunheyi.aibot.operate.service.IUserService;
+import com.zhiyunheyi.aibot.operate.vo.UserConditionVO;
 import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +32,7 @@ public class UserQueryFacade implements IUserQueryFacade {
     @Override
     @SneakyThrows
     public ApiResult<PageResponse<UserDTO>> page(UserCondition condition, int pageNo, int pageSize) {
-        PageResponse<User> page = this.service.page(condition, pageNo, pageSize);
+        PageResponse<User> page = this.service.page(AssembleUtil.to(condition, UserConditionVO.class), pageNo, pageSize);
         List<UserDTO> dtoList = AssembleUtil.listTo(page.getList(), UserDTO.class);
         return ApiResult.ok(new PageResponse<>(pageNo, pageSize, page.getTotal(), dtoList));
     }

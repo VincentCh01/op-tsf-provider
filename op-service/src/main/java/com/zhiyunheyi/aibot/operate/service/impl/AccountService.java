@@ -5,8 +5,10 @@ import com.zhiyunheyi.aibot.domain.core.enumeration.ResultEnum;
 import com.zhiyunheyi.aibot.domain.core.utils.SequenceUtil;
 import com.zhiyunheyi.aibot.operate.core.Account;
 import com.zhiyunheyi.aibot.operate.exception.AccountException;
+import com.zhiyunheyi.aibot.operate.repository.IAccountRepository;
 import com.zhiyunheyi.aibot.operate.service.IAccountService;
-import com.zhiyunheyi.aibot.userservice.operate.repository.AccountRepository;
+import com.zhiyunheyi.aibot.operate.vo.AccountConditionVO;
+import com.zhiyunheyi.aibot.operate.vo.AccountQueryVO;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +28,7 @@ import java.util.List;
 public class AccountService implements IAccountService {
 
     @Resource
-    private AccountRepository repository;
-
+    private IAccountRepository repository;
 
     @Override
     @Transactional
@@ -80,22 +81,22 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public PageResponse<Account> page(AccountCondition condition, int pageNo, int pageSize) {
+    public PageResponse<Account> page(AccountConditionVO condition, int pageNo, int pageSize) {
         return this.repository.page(condition, pageNo, pageSize);
     }
 
     @Override
-    public PageResponse<Account> pageWithCreatedBy(AccountCondition condition, int pageNo, int pageSize, Long createdBy) {
+    public PageResponse<Account> pageWithCreatedBy(AccountConditionVO condition, int pageNo, int pageSize, Long createdBy) {
         return this.repository.pageWithCreatedBy(condition, pageNo, pageSize, createdBy);
     }
 
     @Override
-    public PageResponse<Account> pageByKey(AccountQuery condition, Integer pageNo, Integer pageSize) {
+    public PageResponse<Account> pageByKey(AccountQueryVO condition, Integer pageNo, Integer pageSize) {
         return this.repository.pageByKey(condition, pageNo, pageSize);
     }
 
     @Override
-    public PageResponse<Account> pageByKeyAndCreatedBy(AccountQuery condition, Integer pageNo, Integer pageSize, Long createdBy) {
+    public PageResponse<Account> pageByKeyAndCreatedBy(AccountQueryVO condition, Integer pageNo, Integer pageSize, Long createdBy) {
         return this.repository.pageByKeyAndCreatedBy(condition, pageNo, pageSize, createdBy);
     }
 

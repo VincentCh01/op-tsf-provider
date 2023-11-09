@@ -2,12 +2,12 @@ package com.zhiyunheyi.aibot.operate.service.impl;
 
 import com.zhiyunheyi.aibot.domain.core.PageResponse;
 import com.zhiyunheyi.aibot.operate.core.Resource;
-import com.zhiyunheyi.aibot.operate.core.dto.request.ResourceCondition;
 import com.zhiyunheyi.aibot.domain.core.enumeration.ResultEnum;
+import com.zhiyunheyi.aibot.operate.repository.IResourceRepository;
 import com.zhiyunheyi.aibot.operate.service.IResourceService;
 import com.zhiyunheyi.aibot.operate.exception.AccountException;
-import com.zhiyunheyi.aibot.userservice.operate.repository.ResourceRepository;
 import com.zhiyunheyi.aibot.domain.core.utils.SequenceUtil;
+import com.zhiyunheyi.aibot.operate.vo.ResourceConditionVO;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +27,7 @@ import java.util.List;
 public class ResourceService implements IResourceService {
 
     @javax.annotation.Resource
-    private ResourceRepository repository;
+    private IResourceRepository repository;
 
     @Override
     @Transactional
@@ -60,12 +60,12 @@ public class ResourceService implements IResourceService {
     }
 
     @Override
-    public PageResponse<Resource> page(ResourceCondition condition, int pageNo, int pageSize) {
+    public PageResponse<Resource> page(ResourceConditionVO condition, int pageNo, int pageSize) {
         return this.repository.page(condition, pageNo, pageSize);
     }
 
     @Override
-    public PageResponse<Resource> pageWithCreatedBy(ResourceCondition condition, int pageNo, int pageSize, Long createdBy) {
+    public PageResponse<Resource> pageWithCreatedBy(ResourceConditionVO condition, int pageNo, int pageSize, Long createdBy) {
         return this.repository.pageWithCreatedBy(condition, pageNo, pageSize, createdBy);
     }
 

@@ -2,6 +2,7 @@ package com.zhiyunheyi.aibot.operate.service;
 
 import com.zhiyunheyi.aibot.domain.core.PageResponse;
 import com.zhiyunheyi.aibot.operate.core.Resource;
+import com.zhiyunheyi.aibot.operate.vo.ResourceConditionVO;
 
 import java.util.List;
 
@@ -12,9 +13,9 @@ public interface IResourceService {
 
     int delete(List<Long> ids);
 
-    PageResponse<Resource> page(ResourceCondition condition, int pageNo, int pageSize);
+    PageResponse<Resource> page(ResourceConditionVO condition, int pageNo, int pageSize);
 
-    PageResponse<Resource> pageWithCreatedBy(ResourceCondition condition, int pageNo, int pageSize, Long createdBy);
+    PageResponse<Resource> pageWithCreatedBy(ResourceConditionVO condition, int pageNo, int pageSize, Long createdBy);
 
     List<Resource> selectAll();
 

@@ -26,7 +26,7 @@ import java.util.List;
 @RestController
 public class MenuCommandFacade implements IMenuCommandFacade {
 
-    @Resource(name = "myMenuService")
+    @Resource
     private IMenuService service;
 
     @Override

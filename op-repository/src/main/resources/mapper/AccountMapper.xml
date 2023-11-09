@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyunheyi.aibot.operate.repository.impl.sql.AccountMapper">
+    <resultMap id="BASE_RESULT_MAP" type="com.zhiyunheyi.aibot.operate.core.Account">
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+        <result column="role_id" property="roleId" jdbcType="VARCHAR"/>
+        <result column="department" property="department" jdbcType="VARCHAR"/>
+        <result column="others" property="others" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="TINYINT"/>
+        <result column="created_by" property="createdBy" jdbcType="BIGINT"/>
+        <result column="updated_by" property="updatedBy" jdbcType="BIGINT"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="BASE_COLUMN">
+        `id`,`user_id`,`email`,`mobile`,`password`,`nickname`,`role_id`,`department`,`others`,`state`,`created_by`,`updated_by`,`updated_at`,`created_at`
+    </sql>
+    <sql id="INSERT_COLUMN">
+        `id`,`user_id`,`email`,`mobile`,`password`,`nickname`,`role_id`,`department`,`others`,`created_by`,`updated_by`
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO `account` (<include refid="INSERT_COLUMN"/>)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.userId},#{item.email},#{item.mobile},#{item.password},#{item.nickname},#{item.roleId},#{item.department},#{item.others},#{item.createdBy},#{item.updatedBy})
+        </foreach>
+    </insert>
+
+    <select id="select" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `account` WHERE state=1 AND id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectWithCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `account` WHERE state=1 AND `created_by` = #{createdBy} AND id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectByRoleId" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `account` WHERE state=1 AND role_id IN
+        <foreach collection="roleIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectByRoleIdAndCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `account` WHERE state=1 AND `created_by` = #{createdBy} AND role_id IN
+        <foreach collection="roleIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getByUserId" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `account` WHERE state=1 AND user_id = #{userId}
+    </select>
+
+    <select id="getByUserIdAndCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `account` WHERE state=1 AND `created_by` = #{createdBy} AND user_id = #{userId}
+    </select>
+
+    <select id="getByMobile" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `account` WHERE state=1 AND mobile = #{mobile}
+    </select>
+
+    <select id="getByMobileAndCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `account` WHERE state=1 AND `created_by` = #{createdBy} AND mobile = #{mobile}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(1) FROM `account`
+        <where>
+            state = 1
+            <include refid="QUERY_CONDITION"/>
+        </where>
+    </select>
+
+    <select id="countWithCreatedBy" resultType="java.lang.Integer">
+        SELECT count(1) FROM `account`
+        <where>
+            state = 1 AND `created_by` = #{createdBy}
+            <include refid="QUERY_CONDITION"/>
+        </where>
+    </select>
+
+    <select id="page" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `account`
+        <where>
+            state = 1
+            <include refid="QUERY_CONDITION"/>
+        </where>
+        LIMIT #{offset},#{len}
+    </select>
+
+    <select id="pageWithCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `account`
+        <where>
+            state = 1 AND `created_by` = #{createdBy}
+            <include refid="QUERY_CONDITION"/>
+        </where>
+        LIMIT #{offset},#{len}
+    </select>
+
+    <select id="countByKey" resultType="java.lang.Integer">
+        SELECT count(1) FROM `account`
+        <where>
+            state = 1
+            <include refid="QUERY_KEY_CONDITION"/>
+        </where>
+    </select>
+
+    <select id="countByKeyAndCreatedBy" resultType="java.lang.Integer">
+        SELECT count(1) FROM `account`
+        <where>
+            state = 1 AND `created_by` = #{createdBy}
+            <include refid="QUERY_KEY_CONDITION"/>
+        </where>
+    </select>
+
+    <select id="pageByKey" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `account`
+        <where>
+            state = 1
+            <include refid="QUERY_KEY_CONDITION"/>
+        </where>
+        LIMIT #{offset},#{len}
+    </select>
+
+    <select id="pageByKeyAndCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `account`
+        <where>
+            state = 1 AND `created_by` = #{createdBy}
+            <include refid="QUERY_KEY_CONDITION"/>
+        </where>
+        LIMIT #{offset},#{len}
+    </select>
+
+    <update id="update">
+        UPDATE `account`
+        SET
+        <trim suffix="" suffixOverrides=",">
+            <if test="nickname!=null and nickname!=''">
+                `nickname` = #{nickname},
+            </if>
+            <if test="roleId!=null and roleId!=''">
+                `role_id` = #{roleId},
+            </if>
+            <if test="department!=null and department!=''">
+                `department` = #{department},
+            </if>
+            <if test="updatedBy!=null and updatedBy!=''">
+                `updated_by` = #{updatedBy},
+            </if>
+        </trim>
+        WHERE state = 1 AND id = #{id} LIMIT 1
+    </update>
+
+    <update id="updatePassword">
+        UPDATE `account`
+        SET password=#{password} WHERE state = 1 AND id = #{id} LIMIT 1
+    </update>
+
+    <update id="updateRole">
+        UPDATE `account`
+        SET role_id=#{roleId} WHERE state = 1 AND id = #{id} LIMIT 1
+    </update>
+
+    <update id="delete">
+        <foreach collection="ids" index="id" item="item" separator=";">
+            UPDATE `account`
+            SET state=0 WHERE state = 1 AND id = #{item} LIMIT 1
+        </foreach>
+    </update>
+
+    <sql id="QUERY_CONDITION">
+        <if test="condition.account != null and condition.account !=''">
+            AND `account` = #{condition.account}
+        </if>
+        <if test="condition.email != null and condition.email !=''">
+            AND `email` = #{condition.email}
+        </if>
+        <if test="condition.mobile != null and condition.mobile !=''">
+            AND `mobile` = #{condition.mobile}
+        </if>
+        <if test="condition.department != null and condition.department !=''">
+            AND `department` = #{condition.department}
+        </if>
+    </sql>
+
+    <sql id="QUERY_KEY_CONDITION">
+        <if test="condition.key != null and condition.key !=''">
+            AND (`nickname` LIKE concat('%', #{condition.key}, '%') OR `mobile` LIKE concat('%', #{condition.key}, '%'))
+        </if>
+        <if test="condition.account != null and condition.account !=''">
+            AND `account` = #{condition.account}
+        </if>
+        <if test="condition.email != null and condition.email !=''">
+            AND `email` = #{condition.email}
+        </if>
+        <if test="condition.mobile != null and condition.mobile !=''">
+            AND `mobile` = #{condition.mobile}
+        </if>
+        <if test="condition.department != null and condition.department !=''">
+            AND `department` = #{condition.department}
+        </if>
+    </sql>
+</mapper>

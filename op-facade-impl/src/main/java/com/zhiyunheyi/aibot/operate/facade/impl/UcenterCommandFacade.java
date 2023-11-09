@@ -2,10 +2,12 @@ package com.zhiyunheyi.aibot.operate.facade.impl;
 
 import com.zhiyunheyi.aibot.domain.core.ApiResult;
 import com.zhiyunheyi.aibot.domain.core.utils.AssembleUtil;
+import com.zhiyunheyi.aibot.operate.application.IUcenterApplication;
 import com.zhiyunheyi.aibot.operate.core.Account;
 import com.zhiyunheyi.aibot.operate.facade.IUcenterCommandFacade;
 import com.zhiyunheyi.aibot.operate.facade.dto.AccountDTO;
 import com.zhiyunheyi.aibot.operate.facade.dto.request.RoleCreateReq;
+import com.zhiyunheyi.aibot.operate.vo.RoleCreateVO;
 import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,43 +27,45 @@ import java.util.List;
 public class UcenterCommandFacade implements IUcenterCommandFacade {
 
     @Resource
-    private IUcenterApplication app;
+    private IUcenterApplication application;
 
     @Override
     @SneakyThrows
     public ApiResult<Boolean> insert(@RequestBody AccountDTO dto) {
-        this.app.insert(AssembleUtil.to(dto, Account.class));
+        this.application.insert(AssembleUtil.to(dto, Account.class));
         return ApiResult.ok(true);
     }
 
     @Override
     @SneakyThrows
     public ApiResult<Boolean> update(@RequestBody AccountDTO dto) {
-        this.app.update(AssembleUtil.to(dto, Account.class));
+        this.application.update(AssembleUtil.to(dto, Account.class));
         return ApiResult.ok(true);
     }
 
     @Override
     public ApiResult<Boolean> delete(@RequestBody List<Long> ids) {
-        this.app.delete(ids);
+        this.application.delete(ids);
         return ApiResult.ok(true);
     }
 
     @Override
+    @SneakyThrows
     public ApiResult<Boolean> insert(@RequestBody RoleCreateReq req) {
-        this.app.insertRole(req);
+        this.application.insertRole(AssembleUtil.to(req, RoleCreateVO.class));
         return ApiResult.ok(true);
     }
 
     @Override
+    @SneakyThrows
     public ApiResult<Boolean> update(@RequestBody RoleCreateReq req) {
-        this.app.updateRole(req);
+        this.application.updateRole(AssembleUtil.to(req, RoleCreateVO.class));
         return ApiResult.ok(true);
     }
 
     @Override
     public ApiResult<Boolean> deleteRole(@RequestBody List<Long> ids) {
-        this.app.deleteRole(ids);
+        this.application.deleteRole(ids);
         return ApiResult.ok(true);
     }
 

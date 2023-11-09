@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyunheyi.aibot.operate.repository.impl.sql.UserMapper">
+    <resultMap id="BASE_RESULT_MAP" type="com.zhiyunheyi.aibot.operate.core.User">
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+        <result column="real_name" property="realName" jdbcType="VARCHAR" />
+        <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="gender" property="gender" jdbcType="TINYINT"/>
+        <result column="others" property="others" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="TINYINT"/>
+        <result column="created_by" property="createdBy" jdbcType="BIGINT"/>
+        <result column="updated_by" property="updatedBy" jdbcType="BIGINT"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="BASE_COLUMN">
+        `id`,`nick_name`,`real_name`,`avatar`,`mobile`,`email`,`gender`,`others`,`state`,`created_by`,`updated_by`,`updated_at`,`created_at`
+    </sql>
+    <sql id="INSERT_COLUMN">
+        `id`,`nick_name`,`real_name`,`avatar`,`mobile`,`email`,`gender`,`others`,`created_by`,`updated_by`
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO `user` (<include refid="INSERT_COLUMN"/>)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.nickName},#{item.realName},#{item.avatar},#{item.mobile},#{item.email},#{item.gender},#{item.others},#{item.createdBy},#{item.updatedBy})
+        </foreach>
+    </insert>
+
+    <select id="select" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `user` WHERE state=1 AND id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectWithCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `user` WHERE state=1 AND `created_by`=#{createdBy} AND id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectByMobile" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `user` WHERE state=1 AND mobile IN
+        <foreach collection="mobiles" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectByMobileAndCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `user` WHERE state=1 AND `created_by`=#{createdBy} AND mobile IN
+        <foreach collection="mobiles" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectAll" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `user` WHERE state=1
+    </select>
+
+    <select id="selectAllByCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `user` WHERE state=1 AND `created_by`=#{createdBy}
+    </select>
+
+
+    <update id="update">
+        UPDATE `user`
+        SET
+        <trim suffix="" suffixOverrides=",">
+            <if test="nickName!=null and nickName!=''">
+                `nick_name` = #{nickName},
+            </if>
+            <if test="realName!=null and realName!=''">
+                `real_name` = #{realName},
+            </if>
+            <if test="avatar!=null and avatar!=''">
+                `avatar` = #{avatar},
+            </if>
+            <if test="mobile!=null and mobile!=''">
+                `mobile` = #{mobile},
+            </if>
+            <if test="email!=null  and email!=''">
+                `email` = #{email},
+            </if>
+            <if test="gender!=null">
+                `gender` = #{gender},
+            </if>
+            <if test="updatedBy!=null and updatedBy!=''">
+                `updated_by` = #{updatedBy},
+            </if>
+        </trim>
+        WHERE state = 1 AND id = #{id} LIMIT 1
+    </update>
+
+    <update id="delete">
+        <foreach collection="ids" index="id" item="item" separator=";">
+            UPDATE `user`
+            SET state=0 WHERE state = 1 AND id = #{item} LIMIT 1
+        </foreach>
+    </update>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(1) FROM `user`
+        <where>
+            state = 1
+            <include refid="QUERY_CONDITION"/>
+        </where>
+    </select>
+
+    <select id="countWithCreatedBy" resultType="java.lang.Integer">
+        SELECT count(1) FROM `user`
+        <where>
+            state = 1 AND `created_by` = #{createdBy}
+            <include refid="QUERY_CONDITION"/>
+        </where>
+    </select>
+
+    <select id="page" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `user`
+        <where>
+            state = 1
+            <include refid="QUERY_CONDITION"/>
+        </where>
+        LIMIT #{offset},#{len}
+    </select>
+
+    <select id="pageWithCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `user`
+        <where>
+            state = 1 AND `created_by` = #{createdBy}
+            <include refid="QUERY_CONDITION"/>
+        </where>
+        LIMIT #{offset},#{len}
+    </select>
+
+    <sql id="QUERY_CONDITION">
+        <if test="condition.nickName != null and condition.nickName !=''">
+            AND `nick_name` = #{condition.nickName}
+        </if>
+        <if test="condition.realName != null and condition.realName !=''">
+            AND `real_name` = #{condition.realName}
+        </if>
+        <if test="condition.mobile != null and condition.mobile !=''">
+            AND `mobile` = #{condition.mobile}
+        </if>
+        <if test="condition.email != null and condition.email !=''">
+            AND `email` = #{condition.email}
+        </if>
+        <if test="condition.gender != null">
+            AND `gender` = #{condition.gender}
+        </if>
+        <if test="condition.department != null and condition.department !=''">
+            AND `department` = #{condition.department}
+        </if>
+    </sql>
+</mapper>

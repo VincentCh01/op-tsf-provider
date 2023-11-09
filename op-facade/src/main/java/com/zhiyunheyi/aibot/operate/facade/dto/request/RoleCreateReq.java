@@ -1,5 +1,9 @@
 package com.zhiyunheyi.aibot.operate.facade.dto.request;
 
+import com.zhiyunheyi.aibot.domain.core.BaseEntity;
+import lombok.Data;
+import java.util.List;
+
 /**
  * @menu:
  * @ClassName: RoleCreateReq
@@ -8,12 +12,6 @@ package com.zhiyunheyi.aibot.operate.facade.dto.request;
  * @Created Date: 2023/10/26 17:43
  * @Version: 1.0.0-SNAPSHOT
  */
-
-import com.zhiyunheyi.aibot.operate.core.entity.BaseEntity;
-import lombok.Data;
-
-import java.util.List;
-
 @Data
 public class RoleCreateReq extends BaseEntity {
 

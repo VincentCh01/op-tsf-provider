@@ -8,6 +8,7 @@ import com.zhiyunheyi.aibot.operate.facade.IRoleQueryFacade;
 import com.zhiyunheyi.aibot.operate.facade.dto.RoleDTO;
 import com.zhiyunheyi.aibot.operate.facade.dto.request.RoleCondition;
 import com.zhiyunheyi.aibot.operate.service.IRoleService;
+import com.zhiyunheyi.aibot.operate.vo.RoleConditionVO;
 import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +32,7 @@ public class RoleQueryFacade implements IRoleQueryFacade {
     @Override
     @SneakyThrows
     public ApiResult<PageResponse<RoleDTO>> page(RoleCondition condition, int pageNo, int pageSize) {
-        PageResponse<Role> page = this.service.page(condition, pageNo, pageSize);
+        PageResponse<Role> page = this.service.page(AssembleUtil.to(condition, RoleConditionVO.class), pageNo, pageSize);
         List<RoleDTO> dtoList = AssembleUtil.listTo(page.getList(), RoleDTO.class);
         return ApiResult.ok(new PageResponse<>(pageNo, pageSize, page.getTotal(), dtoList));
     }

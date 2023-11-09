@@ -2,6 +2,8 @@ package com.zhiyunheyi.aibot.operate.service;
 
 import com.zhiyunheyi.aibot.domain.core.PageResponse;
 import com.zhiyunheyi.aibot.operate.core.Account;
+import com.zhiyunheyi.aibot.operate.vo.AccountConditionVO;
+import com.zhiyunheyi.aibot.operate.vo.AccountQueryVO;
 
 import java.util.List;
 
@@ -20,13 +22,13 @@ public interface IAccountService {
 
     List<Account> selectByRoleIdAndCreatedBy(List<Long> roleIds, Long createdBy);
 
-    PageResponse<Account> page(AccountCondition condition, int pageNo, int pageSize);
+    PageResponse<Account> page(AccountConditionVO condition, int pageNo, int pageSize);
 
-    PageResponse<Account> pageWithCreatedBy(AccountCondition condition, int pageNo, int pageSize, Long createdBy);
+    PageResponse<Account> pageWithCreatedBy(AccountConditionVO condition, int pageNo, int pageSize, Long createdBy);
 
-    PageResponse<Account> pageByKey(AccountQuery condition, Integer pageNo, Integer pageSize);
+    PageResponse<Account> pageByKey(AccountQueryVO condition, Integer pageNo, Integer pageSize);
 
-    PageResponse<Account> pageByKeyAndCreatedBy(AccountQuery condition, Integer pageNo, Integer pageSize, Long createdBy);
+    PageResponse<Account> pageByKeyAndCreatedBy(AccountQueryVO condition, Integer pageNo, Integer pageSize, Long createdBy);
 
     Account getByUserId(Long userId);
 

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyunheyi.aibot.operate.repository.impl.sql.MenuMapper">
+    <resultMap id="BASE_RESULT_MAP" type="com.zhiyunheyi.aibot.operate.core.Menu">
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="url" property="url" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="level" property="level" jdbcType="TINYINT"/>
+        <result column="order" property="order" jdbcType="TINYINT"/>
+        <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="desc" property="desc" jdbcType="VARCHAR"/>
+        <result column="others" property="others" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="TINYINT"/>
+        <result column="created_by" property="createdBy" jdbcType="BIGINT"/>
+        <result column="updated_by" property="updatedBy" jdbcType="BIGINT"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="BASE_COLUMN">
+        `id`,`url`,`type`,`level`,`order`,`parent_id`,`name`,`desc`,`others`,`state`,`created_by`,`updated_by`,`updated_at`,`created_at`
+    </sql>
+    <sql id="INSERT_COLUMN">
+        `id`,`url`,`type`,`level`,`order`,`parent_id`,`name`,`desc`,`others`,`created_by`,`updated_by`
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO `menu` (<include refid="INSERT_COLUMN"/>)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.url},#{item.type},#{item.level},#{item.order},#{item.parentId},#{item.name},#{item.desc},#{item.others},#{item.createdBy},#{item.updatedBy})
+        </foreach>
+    </insert>
+
+    <select id="select" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `menu` WHERE state=1 AND id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectWithCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `menu` WHERE state=1 AND `created_by` = #{createdBy} AND id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectAll" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `menu` WHERE state=1
+    </select>
+
+    <select id="selectAllWithCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `menu` WHERE state=1 AND `created_by` = #{createdBy}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(1) FROM `role`
+        <where>
+            state = 1
+            <include refid="QUERY_CONDITION"/>
+        </where>
+    </select>
+
+    <select id="countWithCreatedBy" resultType="java.lang.Integer">
+        SELECT count(1) FROM `role`
+        <where>
+            state = 1 AND `created_by` = #{createdBy}
+            <include refid="QUERY_CONDITION"/>
+        </where>
+    </select>
+
+    <select id="page" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `role`
+        <where>
+            state = 1
+            <include refid="QUERY_CONDITION"/>
+        </where>
+        LIMIT #{offset},#{len}
+    </select>
+
+    <select id="pageWithCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `role`
+        <where>
+            state = 1 AND `created_by` = #{createdBy}
+            <include refid="QUERY_CONDITION"/>
+        </where>
+        LIMIT #{offset},#{len}
+    </select>
+
+    <update id="update">
+        UPDATE `menu`
+        SET
+        <trim suffix="" suffixOverrides=",">
+            <if test="level!=null">
+                `level` = #{level},
+            </if>
+            <if test="order!=null">
+                `order` = #{order},
+            </if>
+            <if test="name!=null">
+                `name` = #{name},
+            </if>
+            <if test="url!=null">
+                `url` = #{url},
+            </if>
+            <if test="desc!=null">
+                `desc` = #{desc},
+            </if>
+            <if test="updatedBy!=null and updatedBy!=''">
+                `updated_by` = #{updatedBy},
+            </if>
+        </trim>
+        WHERE state = 1 AND id = #{id} LIMIT 1
+    </update>
+
+    <update id="updateParent">
+        UPDATE `menu`
+        SET parent_id=#{parentId} WHERE state = 1 AND id = #{id} LIMIT 1
+    </update>
+
+    <update id="delete">
+        UPDATE `menu`
+        SET state = 0 WHERE state = 1 AND id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <sql id="QUERY_CONDITION">
+        <if test="condition.name != null and condition.name !=''">
+            AND `name` = #{condition.name}
+        </if>
+        <if test="condition.type != null and condition.type !=''">
+            AND `type` = #{condition.type}
+        </if>
+        <if test="condition.level != null">
+            AND `level` = #{condition.level}
+        </if>
+        <if test="condition.parentId != null and condition.parentId !=''">
+            AND `parent_id` = #{condition.parentId}
+        </if>
+    </sql>
+</mapper>

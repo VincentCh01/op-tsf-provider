@@ -1,9 +1,9 @@
 package com.zhiyunheyi.aibot.operate.facade.dto.response;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.zhiyunheyi.aibot.operate.core.dto.ResourceDTO;
-import com.zhiyunheyi.aibot.operate.core.entity.BaseEntity;
+import com.zhiyunheyi.aibot.domain.core.BaseEntity;
 import com.zhiyunheyi.aibot.domain.core.utils.Long2StringSerialize;
+import com.zhiyunheyi.aibot.operate.facade.dto.ResourceDTO;
 import lombok.Data;
 
 import java.util.List;

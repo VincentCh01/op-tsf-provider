@@ -2,6 +2,7 @@ package com.zhiyunheyi.aibot.operate.service;
 
 import com.zhiyunheyi.aibot.domain.core.PageResponse;
 import com.zhiyunheyi.aibot.operate.core.Role;
+import com.zhiyunheyi.aibot.operate.vo.RoleConditionVO;
 
 import java.util.List;
 
@@ -12,9 +13,9 @@ public interface IRoleService {
 
     int delete(List<Long> ids);
 
-    PageResponse<Role> page(RoleCondition condition, int pageNo, int pageSize);
+    PageResponse<Role> page(RoleConditionVO condition, int pageNo, int pageSize);
 
-    PageResponse<Role> pageWithCreatedBy(RoleCondition condition, int pageNo, int pageSize, Long createdBy);
+    PageResponse<Role> pageWithCreatedBy(RoleConditionVO condition, int pageNo, int pageSize, Long createdBy);
 
     List<Role> select(List<Long> ids);
 

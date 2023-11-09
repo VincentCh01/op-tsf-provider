@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyunheyi.aibot.operate.repository.impl.sql.RoleMenuMapper">
+    <resultMap id="BASE_RESULT_MAP" type="com.zhiyunheyi.aibot.operate.core.RoleMenu">
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="role_id" property="roleId" jdbcType="VARCHAR"/>
+        <result column="menu_id" property="menuId" jdbcType="VARCHAR"/>
+        <result column="others" property="others" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="TINYINT"/>
+        <result column="created_by" property="createdBy" jdbcType="BIGINT"/>
+        <result column="updated_by" property="updatedBy" jdbcType="BIGINT"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="BASE_COLUMN">
+        `id`,`role_id`,`menu_id`,`others`,`state`,`created_by`,`updated_by`,`updated_at`,`created_at`
+    </sql>
+    <sql id="INSERT_COLUMN">
+        `id`,`role_id`,`menu_id`,`others`,`created_by`,`updated_by`
+    </sql>
+
+    <insert id="insert" parameterType="java.util.List">
+        INSERT INTO `role_menu` (<include refid="INSERT_COLUMN"/>)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.id},#{item.roleId},#{item.menuId},#{item.others},#{item.createdBy},#{item.updatedBy})
+        </foreach>
+    </insert>
+
+    <select id="select" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `role_menu` WHERE state=1 AND id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectWithCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `role_menu` WHERE state=1 AND `created_by` = #{createdBy} AND id IN
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectByRole" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `role_menu` WHERE state=1 AND role_id = #{roleId}
+    </select>
+
+    <select id="selectByRoleAndCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `role_menu` WHERE state=1 AND role_id = #{roleId} AND `created_by` = #{createdBy}
+    </select>
+
+    <select id="selectAll" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `role_menu` WHERE state=1
+    </select>
+
+    <select id="selectAllWithCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `role_menu` WHERE state=1 AND `created_by` = #{createdBy}
+    </select>
+
+    <update id="delete">
+        <foreach collection="ids" index="id" item="item" separator=";">
+            UPDATE `role_menu`
+            SET state=0 WHERE state = 1 AND id = #{item} LIMIT 1
+        </foreach>
+    </update>
+
+    <update id="deleteByRoleId">
+        UPDATE `role_menu`
+        SET state=0 WHERE state = 1 AND role_id IN
+        <foreach collection="roleIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="deleteByMenuId">
+        UPDATE `role_menu`
+        SET state=0 WHERE state = 1 AND menu_id IN
+        <foreach collection="menuIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <update id="deleteByRoleAndRes">
+        UPDATE `role_menu`
+        SET state=0 WHERE state = 1 AND role_id = #{roleId} AND menu_id IN
+        <foreach collection="menuIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="query" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `role_menu`
+        <where>
+            state = 1
+            <include refid="QUERY_CONDITION"/>
+        </where>
+    </select>
+
+    <select id="queryWithCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `role_menu`
+        <where>
+            state = 1 AND `created_by` = #{createdBy}
+            <include refid="QUERY_CONDITION"/>
+        </where>
+    </select>
+
+    <select id="selectByRoleId" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `role_menu`
+        <where>
+            state = 1 AND role_id = #{roleId}
+        </where>
+    </select>
+
+    <select id="selectByRoleIdAndCreatedBy" resultMap="BASE_RESULT_MAP">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM `role_menu`
+        <where>
+            state = 1 AND role_id = #{roleId} AND `created_by` = #{createdBy}
+        </where>
+    </select>
+
+    <sql id="QUERY_CONDITION">
+        <if test="roleRes.roleId != null and roleRes.roleId !=''">
+            AND `role_id` = #{roleRes.roleId}
+        </if>
+        <if test="roleRes.menuId != null and roleRes.menuId !=''">
+            AND `menu_id` = #{roleRes.menuId}
+        </if>
+    </sql>
+</mapper>

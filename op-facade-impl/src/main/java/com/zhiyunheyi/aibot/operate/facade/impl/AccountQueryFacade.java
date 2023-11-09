@@ -8,6 +8,7 @@ import com.zhiyunheyi.aibot.operate.facade.IAccountQueryFacade;
 import com.zhiyunheyi.aibot.operate.facade.dto.AccountDTO;
 import com.zhiyunheyi.aibot.operate.facade.dto.request.AccountCondition;
 import com.zhiyunheyi.aibot.operate.service.IAccountService;
+import com.zhiyunheyi.aibot.operate.vo.AccountConditionVO;
 import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +39,7 @@ public class AccountQueryFacade implements IAccountQueryFacade {
     @Override
     @SneakyThrows
     public ApiResult<PageResponse<AccountDTO>> page(AccountCondition condition, int pageNo, int pageSize) {
-        PageResponse<Account> page = this.service.page(condition, pageNo, pageSize);
+        PageResponse<Account> page = this.service.page(AssembleUtil.to(condition, AccountConditionVO.class), pageNo, pageSize);
         List<AccountDTO> dtoList = AssembleUtil.listTo(page.getList(), AccountDTO.class);
         return ApiResult.ok(new PageResponse<>(pageNo, pageSize, page.getTotal(), dtoList));
     }

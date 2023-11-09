@@ -2,12 +2,12 @@ package com.zhiyunheyi.aibot.operate.service.impl;
 
 import com.zhiyunheyi.aibot.domain.core.PageResponse;
 import com.zhiyunheyi.aibot.operate.core.Role;
-import com.zhiyunheyi.aibot.operate.core.dto.request.RoleCondition;
 import com.zhiyunheyi.aibot.domain.core.enumeration.ResultEnum;
+import com.zhiyunheyi.aibot.operate.repository.IRoleRepository;
 import com.zhiyunheyi.aibot.operate.service.IRoleService;
 import com.zhiyunheyi.aibot.operate.exception.AccountException;
-import com.zhiyunheyi.aibot.userservice.operate.repository.RoleRepository;
 import com.zhiyunheyi.aibot.domain.core.utils.SequenceUtil;
+import com.zhiyunheyi.aibot.operate.vo.RoleConditionVO;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +27,7 @@ import java.util.List;
 public class RoleService implements IRoleService {
 
     @Resource
-    private RoleRepository repository;
+    private IRoleRepository repository;
 
     @Override
     @Transactional
@@ -60,12 +60,12 @@ public class RoleService implements IRoleService {
     }
 
     @Override
-    public PageResponse<Role> page(RoleCondition condition, int pageNo, int pageSize) {
+    public PageResponse<Role> page(RoleConditionVO condition, int pageNo, int pageSize) {
         return this.repository.page(condition, pageNo, pageSize);
     }
 
     @Override
-    public PageResponse<Role> pageWithCreatedBy(RoleCondition condition, int pageNo, int pageSize, Long createdBy) {
+    public PageResponse<Role> pageWithCreatedBy(RoleConditionVO condition, int pageNo, int pageSize, Long createdBy) {
         return this.repository.pageWithCreatedBy(condition, pageNo, pageSize, createdBy);
     }
 

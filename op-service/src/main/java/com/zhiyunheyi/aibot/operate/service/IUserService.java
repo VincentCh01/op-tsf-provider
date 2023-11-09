@@ -2,6 +2,7 @@ package com.zhiyunheyi.aibot.operate.service;
 
 import com.zhiyunheyi.aibot.domain.core.PageResponse;
 import com.zhiyunheyi.aibot.operate.core.User;
+import com.zhiyunheyi.aibot.operate.vo.UserConditionVO;
 
 import java.util.List;
 
@@ -12,9 +13,9 @@ public interface IUserService {
 
     int delete(List<Long> ids);
 
-    PageResponse<User> page(UserCondition condition, int pageNo, int pageSize);
+    PageResponse<User> page(UserConditionVO condition, int pageNo, int pageSize);
 
-    PageResponse<User> pageWithCreatedBy(UserCondition condition, int pageNo, int pageSize, Long createdBy);
+    PageResponse<User> pageWithCreatedBy(UserConditionVO condition, int pageNo, int pageSize, Long createdBy);
 
     List<User> select(List<Long> userIds);
 

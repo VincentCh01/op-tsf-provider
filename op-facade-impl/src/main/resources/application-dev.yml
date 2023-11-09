@@ -1,0 +1,41 @@
+server:
+  port: 18005
+spring:
+  application:
+    name: user-tsf-provider
+  profiles:
+    active: dev
+  #数据库配置
+  datasource:
+    url: jdbc:mysql://bj-cdb-f6saezii.sql.tencentcdb.com:63805/user_test?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: test
+    password: Uck7HpOHJZsJbSG
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #redis配置
+  redis:
+    host: bj-crs-53iot04r.sql.tencentcdb.com
+    port: 24522
+    password: Zyhy#2023
+    database: 0
+    jedis:
+      pool:
+        max-active: 20  # 连接池最大连接数（使用负值表示没有限制） 默认 8
+        max-wait: 1000 # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+        max-idle: 2 # 连接池中的最大空闲连接 默认 8
+        min-idle: 5 # 连接池中的最小空闲连接 默认 0
+  #jackson对响应回去的日期参数进行格式化
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+logging:
+  # 日志级别设置为DEBUG
+  level:
+    com.zhiyunheyi.aibot.aiservice: debug
+  pattern:
+    level: "%-5level [${spring.application.name},%mdc{trace_id},%mdc{span_id},]"
+
+# 配置slq打印日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

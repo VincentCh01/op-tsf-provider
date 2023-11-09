@@ -2,9 +2,9 @@ package com.zhiyunheyi.aibot.operate.service.impl;
 
 import com.zhiyunheyi.aibot.operate.core.RoleMenu;
 import com.zhiyunheyi.aibot.domain.core.enumeration.ResultEnum;
+import com.zhiyunheyi.aibot.operate.repository.IRoleMenuRepository;
 import com.zhiyunheyi.aibot.operate.service.IRoleMenuService;
 import com.zhiyunheyi.aibot.operate.exception.AccountException;
-import com.zhiyunheyi.aibot.userservice.operate.repository.RoleMenuRepository;
 import com.zhiyunheyi.aibot.domain.core.utils.SequenceUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ import java.util.List;
 public class RoleMenuService implements IRoleMenuService {
 
     @Resource
-    private RoleMenuRepository repository;
+    private IRoleMenuRepository repository;
 
     @Override
     @Transactional

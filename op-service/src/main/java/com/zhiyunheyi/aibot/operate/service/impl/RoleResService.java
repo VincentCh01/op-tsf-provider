@@ -2,9 +2,9 @@ package com.zhiyunheyi.aibot.operate.service.impl;
 
 import com.zhiyunheyi.aibot.operate.core.RoleRes;
 import com.zhiyunheyi.aibot.domain.core.enumeration.ResultEnum;
+import com.zhiyunheyi.aibot.operate.repository.IRoleResRepository;
 import com.zhiyunheyi.aibot.operate.service.IRoleResService;
 import com.zhiyunheyi.aibot.operate.exception.AccountException;
-import com.zhiyunheyi.aibot.userservice.operate.repository.RoleResRepository;
 import com.zhiyunheyi.aibot.domain.core.utils.SequenceUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ import java.util.List;
 public class RoleResService implements IRoleResService {
 
     @Resource
-    private RoleResRepository repository;
+    private IRoleResRepository repository;
 
     @Override
     @Transactional

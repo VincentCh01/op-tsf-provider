@@ -11,6 +11,8 @@ import com.zhiyunheyi.aibot.operate.facade.dto.request.RoleCondition;
 import com.zhiyunheyi.aibot.operate.facade.dto.response.MenuTree;
 import com.zhiyunheyi.aibot.operate.facade.dto.response.ResourceTree;
 import com.zhiyunheyi.aibot.operate.facade.dto.response.UserInfo;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,28 +27,29 @@ import java.util.List;
  * @Created Date: 2023/11/8 17:34
  * @Version: 1.0.0-SNAPSHOT
  */
+@FeignClient(name = "operate-user")
 @RequestMapping("/ucenter")
 public interface IUcenterQueryFacade {
     @GetMapping("/userInfo/getByUserId")
-    ApiResult<UserInfo> getByUserId(Long userId);
+    ApiResult<UserInfo> getByUserId(@RequestParam("userId") Long userId);
 
     @GetMapping("/userInfo/getByMobile")
-    ApiResult<UserInfo> getByMobile(String mobile);
+    ApiResult<UserInfo> getByMobile(@RequestParam("mobile") String mobile);
 
-    @GetMapping("/userInfo/page")
-    ApiResult<PageResponse<UserInfo>> page(AccountCondition condition,
-                                           @RequestParam(required = false, defaultValue = "1") Integer pageNo,
-                                           @RequestParam(required = false, defaultValue = "10") Integer pageSize);
-
-    @GetMapping("/userInfo/pageByKey")
-    ApiResult<PageResponse<UserInfo>> pageByKey(AccountQuery condition,
-                                                @RequestParam(required = false, defaultValue = "1") Integer pageNo,
-                                                @RequestParam(required = false, defaultValue = "10") Integer pageSize);
-
-    @GetMapping("/role/page")
-    ApiResult<PageResponse<RoleDTO>> page(RoleCondition condition,
-                                          @RequestParam(required = false, defaultValue = "1") Integer pageNo,
-                                          @RequestParam(required = false, defaultValue = "10") Integer pageSize);
+//    @GetMapping("/userInfo/page")
+//    ApiResult<PageResponse<UserInfo>> page(@SpringQueryMap AccountCondition condition,
+//                                           @RequestParam(required = false, defaultValue = "1") Integer pageNo,
+//                                           @RequestParam(required = false, defaultValue = "10") Integer pageSize);
+//
+//    @GetMapping("/userInfo/pageByKey")
+//    ApiResult<PageResponse<UserInfo>> pageByKey(@SpringQueryMap AccountQuery condition,
+//                                                @RequestParam(required = false, defaultValue = "1") Integer pageNo,
+//                                                @RequestParam(required = false, defaultValue = "10") Integer pageSize);
+//
+//    @GetMapping("/role/page")
+//    ApiResult<PageResponse<RoleDTO>> page(@SpringQueryMap RoleCondition condition,
+//                                          @RequestParam(required = false, defaultValue = "1") Integer pageNo,
+//                                          @RequestParam(required = false, defaultValue = "10") Integer pageSize);
 
     @GetMapping("/role/selectAll")
     ApiResult<List<RoleDTO>> selectAllRole();
@@ -55,7 +58,7 @@ public interface IUcenterQueryFacade {
     ApiResult<List<ResourceTree>> treeAll();
 
     @GetMapping("/resource/treeByRoleId")
-    ApiResult<List<ResourceTree>> treeByRoleId(Long roleId);
+    ApiResult<List<ResourceTree>> treeByRoleId(@RequestParam("roleId") Long roleId);
 
     @GetMapping("/resource/selectByRoleId")
     ApiResult<List<ResourceDTO>> selectByRoleId(@RequestParam("roleId") Long roleId);
@@ -70,7 +73,7 @@ public interface IUcenterQueryFacade {
     ApiResult<List<MenuTree>> treeAllMenu();
 
     @GetMapping("/menu/treeByRoleId")
-    ApiResult<List<MenuTree>> treeMenuByRoleId(Long roleId);
+    ApiResult<List<MenuTree>> treeMenuByRoleId(@RequestParam("roleId") Long roleId);
 
     @GetMapping("/menu/selectByRoleId")
     ApiResult<List<MenuDTO>> selectMenuByRoleId(@RequestParam("roleId") Long roleId);

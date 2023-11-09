@@ -56,7 +56,7 @@ public class UcenterQueryFacade implements IUcenterQueryFacade {
         return ApiResult.ok(AssembleUtil.to(infoVO, UserInfo.class));
     }
 
-    @Override
+//    @Override
     @SneakyThrows
     public ApiResult<PageResponse<UserInfo>> page(AccountCondition condition,
                                                   @RequestParam(required = false, defaultValue = "1") Integer pageNo,
@@ -65,7 +65,7 @@ public class UcenterQueryFacade implements IUcenterQueryFacade {
         return ApiResult.ok(new PageResponse<>(page.getPageNum(), page.getPageSize(), page.getTotal(), AssembleUtil.listTo(page.getList(), UserInfo.class)));
     }
 
-    @Override
+//    @Override
     @SneakyThrows
     public ApiResult<PageResponse<UserInfo>> pageByKey(AccountQuery condition,
                                                        @RequestParam(required = false, defaultValue = "1") Integer pageNo,
@@ -74,7 +74,7 @@ public class UcenterQueryFacade implements IUcenterQueryFacade {
         return ApiResult.ok(new PageResponse<>(page.getPageNum(), page.getPageSize(), page.getTotal(), AssembleUtil.listTo(page.getList(), UserInfo.class)));
     }
 
-    @Override
+//    @Override
     @SneakyThrows
     public ApiResult<PageResponse<RoleDTO>> page(RoleCondition condition,
                                                  @RequestParam(required = false, defaultValue = "1") Integer pageNo,

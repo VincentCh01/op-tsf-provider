@@ -2,7 +2,7 @@ server:
   port: 18005
 spring:
   application:
-    name: user-tsf-provider
+    name: operate-user
   profiles:
     active: prod
   #数据库配置

@@ -3,6 +3,7 @@ package com.zhiyunheyi.aibot.operate.facade;
 import com.zhiyunheyi.aibot.domain.core.ApiResult;
 import com.zhiyunheyi.aibot.operate.facade.dto.AccountDTO;
 import com.zhiyunheyi.aibot.operate.facade.dto.request.RoleCreateReq;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

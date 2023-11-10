@@ -8,7 +8,7 @@ RUN echo 'Asia/Shanghai' >/etc/timezone
 #RUN wget -c https://cos-qiye-1318760806.cos.ap-beijing.myqcloud.com/software/ot-agent-release.tar \
 #    && tar xvf ot-agent-release.tar
 WORKDIR /app
-ADD ./op-facade-impl/target/op-facade-impl-*.jar /app/app.jar
+ADD ./op-facade-impl/target/op-facade-impl-*.jar /app/op-service.jar
 
 # JAVA_OPTS 环境变量的值为部署组的 JVM 启动参数，在运行时 bash 替换。使用 exec 以使 Java 程序可以接收 SIGTERM 信号。
 # 考虑到容器场景对于内存的要求，建议添加-Xshare:off选项关闭CDS功能

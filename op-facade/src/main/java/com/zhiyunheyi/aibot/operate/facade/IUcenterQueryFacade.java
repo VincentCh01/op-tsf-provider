@@ -27,7 +27,7 @@ import java.util.List;
  * @Created Date: 2023/11/8 17:34
  * @Version: 1.0.0-SNAPSHOT
  */
-@FeignClient(name = "operate-user", qualifier="ucenterQuery")
+@FeignClient(name = "operate-user", qualifier = "ucenterQuery")
 @RequestMapping("/ucenter")
 public interface IUcenterQueryFacade {
     @GetMapping("/userInfo/getByUserId")
@@ -36,20 +36,20 @@ public interface IUcenterQueryFacade {
     @GetMapping("/userInfo/getByMobile")
     ApiResult<UserInfo> getByMobile(@RequestParam("mobile") String mobile);
 
-//    @GetMapping("/userInfo/page")
-//    ApiResult<PageResponse<UserInfo>> page(@SpringQueryMap AccountCondition condition,
-//                                           @RequestParam(required = false, defaultValue = "1") Integer pageNo,
-//                                           @RequestParam(required = false, defaultValue = "10") Integer pageSize);
-//
-//    @GetMapping("/userInfo/pageByKey")
-//    ApiResult<PageResponse<UserInfo>> pageByKey(@SpringQueryMap AccountQuery condition,
-//                                                @RequestParam(required = false, defaultValue = "1") Integer pageNo,
-//                                                @RequestParam(required = false, defaultValue = "10") Integer pageSize);
-//
-//    @GetMapping("/role/page")
-//    ApiResult<PageResponse<RoleDTO>> page(@SpringQueryMap RoleCondition condition,
-//                                          @RequestParam(required = false, defaultValue = "1") Integer pageNo,
-//                                          @RequestParam(required = false, defaultValue = "10") Integer pageSize);
+    @GetMapping("/userInfo/page")
+    ApiResult<PageResponse<UserInfo>> pageUserInfo(@SpringQueryMap AccountCondition condition,
+                                           @RequestParam(name = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+                                           @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize);
+
+    @GetMapping("/userInfo/pageByKey")
+    ApiResult<PageResponse<UserInfo>> pageUserInfoByKey(@SpringQueryMap AccountQuery condition,
+                                                @RequestParam(name = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+                                                @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize);
+
+    @GetMapping("/role/page")
+    ApiResult<PageResponse<RoleDTO>> pageRole(@SpringQueryMap RoleCondition condition,
+                                          @RequestParam(name = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+                                          @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize);
 
     @GetMapping("/role/selectAll")
     ApiResult<List<RoleDTO>> selectAllRole();

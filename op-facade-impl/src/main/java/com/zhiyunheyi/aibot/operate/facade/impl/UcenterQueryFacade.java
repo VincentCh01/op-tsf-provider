@@ -5,7 +5,6 @@ import com.zhiyunheyi.aibot.domain.core.PageResponse;
 import com.zhiyunheyi.aibot.domain.core.utils.AssembleUtil;
 import com.zhiyunheyi.aibot.operate.application.IUcenterApplication;
 import com.zhiyunheyi.aibot.operate.core.Role;
-import com.zhiyunheyi.aibot.operate.core.User;
 import com.zhiyunheyi.aibot.operate.facade.IUcenterQueryFacade;
 import com.zhiyunheyi.aibot.operate.facade.dto.MenuDTO;
 import com.zhiyunheyi.aibot.operate.facade.dto.ResourceDTO;
@@ -58,7 +57,7 @@ public class UcenterQueryFacade implements IUcenterQueryFacade {
 
 //    @Override
     @SneakyThrows
-    public ApiResult<PageResponse<UserInfo>> page(AccountCondition condition,
+    public ApiResult<PageResponse<UserInfo>> pageUserInfo(AccountCondition condition,
                                                   @RequestParam(required = false, defaultValue = "1") Integer pageNo,
                                                   @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         PageResponse<UserInfoVO> page = this.application.page(AssembleUtil.to(condition, AccountConditionVO.class), pageNo, pageSize);
@@ -67,7 +66,7 @@ public class UcenterQueryFacade implements IUcenterQueryFacade {
 
 //    @Override
     @SneakyThrows
-    public ApiResult<PageResponse<UserInfo>> pageByKey(AccountQuery condition,
+    public ApiResult<PageResponse<UserInfo>> pageUserInfoByKey(AccountQuery condition,
                                                        @RequestParam(required = false, defaultValue = "1") Integer pageNo,
                                                        @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         PageResponse<UserInfoVO> page = this.application.pageByKey(AssembleUtil.to(condition, AccountQueryVO.class), pageNo, pageSize);
@@ -76,7 +75,7 @@ public class UcenterQueryFacade implements IUcenterQueryFacade {
 
 //    @Override
     @SneakyThrows
-    public ApiResult<PageResponse<RoleDTO>> page(RoleCondition condition,
+    public ApiResult<PageResponse<RoleDTO>> pageRole(RoleCondition condition,
                                                  @RequestParam(required = false, defaultValue = "1") Integer pageNo,
                                                  @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         PageResponse<Role> page = this.application.pageRole(AssembleUtil.to(condition, RoleConditionVO.class), pageNo, pageSize);

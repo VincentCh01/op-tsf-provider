@@ -21,21 +21,21 @@ import java.util.List;
 @FeignClient(name = "operate-user", qualifier="ucenterCommand")
 @RequestMapping("/ucenter")
 public interface IUcenterCommandFacade {
-    @PostMapping("/userInfo/insert")
-    ApiResult<Boolean> insert(@RequestBody AccountDTO dto);
+    @PostMapping("/ucenter/userInfo/insert")
+    ApiResult<Boolean> insertAccount(@RequestBody AccountDTO dto);
 
-    @PostMapping("/userInfo/update")
-    ApiResult<Boolean> update(@RequestBody AccountDTO dto);
+    @PostMapping("/ucenter/userInfo/update")
+    ApiResult<Boolean> updateAccount(@RequestBody AccountDTO dto);
 
-    @PostMapping("/userInfo/delete")
-    ApiResult<Boolean> delete(@RequestBody List<Long> ids);
+    @PostMapping("/ucenter/userInfo/delete")
+    ApiResult<Boolean> deleteAccount(@RequestBody List<Long> ids);
 
-    @PostMapping("/role/insert")
-    ApiResult<Boolean> insert(@RequestBody RoleCreateReq req);
+    @PostMapping("/ucenter/role/insert")
+    ApiResult<Boolean> insertRole(@RequestBody RoleCreateReq req);
 
-    @PostMapping("/role/update")
-    ApiResult<Boolean> update(@RequestBody RoleCreateReq req);
+    @PostMapping("/ucenter/role/update")
+    ApiResult<Boolean> updateRole(@RequestBody RoleCreateReq req);
 
-    @PostMapping("/role/delete")
+    @PostMapping("/ucenter/role/delete")
     ApiResult<Boolean> deleteRole(@RequestBody List<Long> ids);
 }

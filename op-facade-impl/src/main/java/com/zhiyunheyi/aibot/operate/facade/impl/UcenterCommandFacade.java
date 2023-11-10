@@ -31,34 +31,34 @@ public class UcenterCommandFacade implements IUcenterCommandFacade {
 
     @Override
     @SneakyThrows
-    public ApiResult<Boolean> insert(@RequestBody AccountDTO dto) {
+    public ApiResult<Boolean> insertAccount(@RequestBody AccountDTO dto) {
         this.application.insert(AssembleUtil.to(dto, Account.class));
         return ApiResult.ok(true);
     }
 
     @Override
     @SneakyThrows
-    public ApiResult<Boolean> update(@RequestBody AccountDTO dto) {
+    public ApiResult<Boolean> updateAccount(@RequestBody AccountDTO dto) {
         this.application.update(AssembleUtil.to(dto, Account.class));
         return ApiResult.ok(true);
     }
 
     @Override
-    public ApiResult<Boolean> delete(@RequestBody List<Long> ids) {
+    public ApiResult<Boolean> deleteAccount(@RequestBody List<Long> ids) {
         this.application.delete(ids);
         return ApiResult.ok(true);
     }
 
     @Override
     @SneakyThrows
-    public ApiResult<Boolean> insert(@RequestBody RoleCreateReq req) {
+    public ApiResult<Boolean> insertRole(@RequestBody RoleCreateReq req) {
         this.application.insertRole(AssembleUtil.to(req, RoleCreateVO.class));
         return ApiResult.ok(true);
     }
 
     @Override
     @SneakyThrows
-    public ApiResult<Boolean> update(@RequestBody RoleCreateReq req) {
+    public ApiResult<Boolean> updateRole(@RequestBody RoleCreateReq req) {
         this.application.updateRole(AssembleUtil.to(req, RoleCreateVO.class));
         return ApiResult.ok(true);
     }

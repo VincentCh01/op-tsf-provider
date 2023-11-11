@@ -1,4 +1,4 @@
-FROM openjdk:8-alpine
+FROM openjdk:8-jre-alpine
 MAINTAINER Vincent
 USER root
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime

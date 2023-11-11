@@ -1,4 +1,4 @@
-FROM frolvlad/alpine-oraclejre8:8.202.08-slim
+FROM openjdk:8-alpine
 MAINTAINER Vincent
 USER root
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime

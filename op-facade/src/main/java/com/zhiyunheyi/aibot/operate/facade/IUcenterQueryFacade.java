@@ -36,6 +36,9 @@ public interface IUcenterQueryFacade {
     @GetMapping("/userInfo/getByMobile")
     ApiResult<UserInfo> getByMobile(@RequestParam("mobile") String mobile);
 
+    @GetMapping("/userInfo/getByMobileWithoutAuth")
+    ApiResult<UserInfo> getByMobileWithoutAuth(@RequestParam("mobile") String mobile);
+
     @GetMapping("/userInfo/page")
     ApiResult<PageResponse<UserInfo>> pageUserInfo(@SpringQueryMap AccountCondition condition,
                                            @RequestParam(name = "pageNo", required = false, defaultValue = "1") Integer pageNo,
@@ -62,6 +65,9 @@ public interface IUcenterQueryFacade {
 
     @GetMapping("/resource/selectByRoleId")
     ApiResult<List<ResourceDTO>> selectByRoleId(@RequestParam("roleId") Long roleId);
+
+    @GetMapping("/resource/selectByRoleIdWithoutAuth")
+    ApiResult<List<ResourceDTO>> selectByRoleIdWithoutAuth(@RequestParam("roleId") Long roleId);
 
     @GetMapping("/resource/selectByRoleIdAndUserId")
     ApiResult<List<ResourceDTO>> selectByRoleIdAndUserId(@RequestParam("roleId") Long roleId);

@@ -80,13 +80,19 @@ public class UcenterApplication implements IUcenterApplication {
             throw new AccountException(ResultEnum.PARAM_ERROR, "手机号重复");
         }
 
+        AuthTokenVO tokenVO = UserContext.getUser();
         User user = new User();
         user.setEmail(account.getEmail());
         user.setMobile(account.getMobile());
         user.setNickName(account.getNickname());
+        user.setCreatedBy(tokenVO.getUserId());
+        user.setUpdatedBy(tokenVO.getUserId());
 
         this.userService.insert(Lists.newArrayList(user));
+
         account.setUserId(user.getId());
+        account.setCreatedBy(tokenVO.getUserId());
+        account.setUpdatedBy(tokenVO.getUserId());
         return this.accountService.insert(Lists.newArrayList(account));
     }
 
@@ -98,14 +104,17 @@ public class UcenterApplication implements IUcenterApplication {
             throw new AccountException(ResultEnum.PARAM_ERROR, "参数错误");
         }
 
+        AuthTokenVO tokenVO = UserContext.getUser();
         Account account = accounts.get(0);
         User user = new User();
         user.setId(account.getUserId());
         user.setEmail(request.getEmail());
         user.setMobile(request.getMobile());
         user.setNickName(request.getNickname());
+        user.setUpdatedBy(tokenVO.getUserId());
         this.userService.update(user);
 
+        request.setUpdatedBy(tokenVO.getUserId());
         return this.accountService.update(request);
     }
 
@@ -184,10 +193,13 @@ public class UcenterApplication implements IUcenterApplication {
             throw new AccountException(ResultEnum.PARAM_ERROR, "角色名重复");
         }
 
+        AuthTokenVO tokenVO = UserContext.getUser();
         Role role = new Role();
         role.setName(req.getName());
         role.setType(req.getType());
         role.setDesc(req.getDesc());
+        role.setCreatedBy(tokenVO.getUserId());
+        role.setUpdatedBy(tokenVO.getUserId());
 
         int result = this.roleService.insert(Lists.newArrayList(role));
         if (!CollectionUtils.isEmpty(req.getMenuIds())) {
@@ -196,6 +208,8 @@ public class UcenterApplication implements IUcenterApplication {
                 RoleMenu roleRes = new RoleMenu();
                 roleRes.setMenuId(menuId);
                 roleRes.setRoleId(role.getId());
+                roleRes.setCreatedBy(tokenVO.getUserId());
+                roleRes.setUpdatedBy(tokenVO.getUserId());
                 roleMenuList.add(roleRes);
             }
 
@@ -209,6 +223,8 @@ public class UcenterApplication implements IUcenterApplication {
                 RoleRes roleRes = new RoleRes();
                 roleRes.setResId(resourceId);
                 roleRes.setRoleId(role.getId());
+                roleRes.setCreatedBy(tokenVO.getUserId());
+                roleRes.setUpdatedBy(tokenVO.getUserId());
                 roleResList.add(roleRes);
             }
 
@@ -221,11 +237,13 @@ public class UcenterApplication implements IUcenterApplication {
     @Override
     @Transactional
     public int updateRole(RoleCreateVO req) {
+        AuthTokenVO tokenVO = UserContext.getUser();
         Role role = new Role();
         role.setId(req.getId());
         role.setName(req.getName());
         role.setType(req.getType());
         role.setDesc(req.getDesc());
+        role.setUpdatedBy(tokenVO.getUserId());
 
         if (!CollectionUtils.isEmpty(req.getMenuIds())) {
             this.roleMenuService.deleteByRoleId(Lists.newArrayList(role.getId()));
@@ -234,6 +252,7 @@ public class UcenterApplication implements IUcenterApplication {
                 RoleMenu roleRes = new RoleMenu();
                 roleRes.setMenuId(menuId);
                 roleRes.setRoleId(role.getId());
+                roleRes.setUpdatedBy(tokenVO.getUserId());
                 roleMenuList.add(roleRes);
             }
 
@@ -247,6 +266,8 @@ public class UcenterApplication implements IUcenterApplication {
                 RoleRes roleRes = new RoleRes();
                 roleRes.setResId(resourceId);
                 roleRes.setRoleId(role.getId());
+                roleRes.setCreatedBy(tokenVO.getUserId());
+                roleRes.setUpdatedBy(tokenVO.getUserId());
                 roleResList.add(roleRes);
             }
 
@@ -299,7 +320,6 @@ public class UcenterApplication implements IUcenterApplication {
 
     @Override
     public List<Resource> selectByRoleId(Long roleId) {
-        AuthTokenVO user = UserContext.getUser();
         List<RoleRes> roleResList = this.roleResService.selectByRoleId(roleId);
         List<Long> resIds = roleResList.stream().map(RoleRes::getResId).collect(Collectors.toList());
         if (CollectionUtils.isEmpty(resIds)) {

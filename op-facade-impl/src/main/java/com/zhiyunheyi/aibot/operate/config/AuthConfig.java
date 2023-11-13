@@ -21,15 +21,12 @@ public class AuthConfig implements WebMvcConfigurer {
         //注册运营后台拦截器2
         registry.addInterceptor(getAuthInterceptor())
                 //所有路径都被拦截
-                .addPathPatterns("/operate/**")
+                .addPathPatterns("/ucenter/**")
                 //添加不拦截路径
                 .excludePathPatterns(
-                        "/operate/login",
-                        "/operate/captcha",
-                        "/operate/v2/login",
-                        "/operate/v2/captcha",
-                        "/operate/client/*",
-                        "/operate/facility/insertOne",
+                        "/ucenter/userInfo/selectByRoleIdWithoutAuth",
+                        "/ucenter/userInfo/getByMobileWithoutAuth",
+                        "/ucenter/resource/selectByRoleIdWithoutAuth",
                         "/**/*.html",
                         "/**/*.js",
                         "/**/*.css"

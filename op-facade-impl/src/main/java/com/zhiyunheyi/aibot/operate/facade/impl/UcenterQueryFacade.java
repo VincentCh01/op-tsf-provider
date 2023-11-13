@@ -55,6 +55,13 @@ public class UcenterQueryFacade implements IUcenterQueryFacade {
         return ApiResult.ok(AssembleUtil.to(infoVO, UserInfo.class));
     }
 
+    @Override
+    @SneakyThrows
+    public ApiResult<UserInfo> getByMobileWithoutAuth(String mobile) {
+        UserInfoVO infoVO = this.application.getByMobile(mobile);
+        return ApiResult.ok(AssembleUtil.to(infoVO, UserInfo.class));
+    }
+
 //    @Override
     @SneakyThrows
     public ApiResult<PageResponse<UserInfo>> pageUserInfo(AccountCondition condition,
@@ -103,6 +110,12 @@ public class UcenterQueryFacade implements IUcenterQueryFacade {
     @Override
     @SneakyThrows
     public ApiResult<List<ResourceDTO>> selectByRoleId(@RequestParam("roleId") Long roleId) {
+        return ApiResult.ok(AssembleUtil.listTo(this.application.selectByRoleId(roleId), ResourceDTO.class));
+    }
+
+    @Override
+    @SneakyThrows
+    public ApiResult<List<ResourceDTO>> selectByRoleIdWithoutAuth(@RequestParam("roleId") Long roleId) {
         return ApiResult.ok(AssembleUtil.listTo(this.application.selectByRoleId(roleId), ResourceDTO.class));
     }
 

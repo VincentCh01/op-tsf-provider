@@ -72,6 +72,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                 .filter(c -> c != null && StringUtils.equals(c.getName(), COOKIE_KEY))
                 .findAny();
         String token = cookie.isPresent() ? cookie.get().getValue() : request.getHeader(COOKIE_KEY);
+        token = token == null ? JSON.parseObject(request.getHeader("authToken"), AuthTokenVO.class).getToken() : token;
         if (!this.authenticate(token, request)) {
             log.error("用户登录token验证不正确，token:{}", token);
             throw new AuthorizeException(ResultEnum.NO_LOGIN);

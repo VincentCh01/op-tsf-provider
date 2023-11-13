@@ -7,7 +7,7 @@ spring:
     active: dev
   #数据库配置
   datasource:
-    url: jdbc:mysql://bj-cdb-f6saezii.sql.tencentcdb.com:63805/user_test?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    url: jdbc:mysql://bj-cdb-f6saezii.sql.tencentcdb.com:63805/op_test?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
     username: test
     password: Uck7HpOHJZsJbSG
     driver-class-name: com.mysql.cj.jdbc.Driver

@@ -21,21 +21,21 @@ import java.util.List;
 @FeignClient(name = "operate-user", qualifier="ucenterCommand")
 @RequestMapping("/ucenter")
 public interface IUcenterCommandFacade {
-    @PostMapping("/ucenter/userInfo/insert")
+    @PostMapping("/userInfo/insert")
     ApiResult<Boolean> insertAccount(@RequestBody AccountDTO dto);
 
-    @PostMapping("/ucenter/userInfo/update")
+    @PostMapping("/userInfo/update")
     ApiResult<Boolean> updateAccount(@RequestBody AccountDTO dto);
 
-    @PostMapping("/ucenter/userInfo/delete")
+    @PostMapping("/userInfo/delete")
     ApiResult<Boolean> deleteAccount(@RequestBody List<Long> ids);
 
-    @PostMapping("/ucenter/role/insert")
+    @PostMapping("/role/insert")
     ApiResult<Boolean> insertRole(@RequestBody RoleCreateReq req);
 
-    @PostMapping("/ucenter/role/update")
+    @PostMapping("/role/update")
     ApiResult<Boolean> updateRole(@RequestBody RoleCreateReq req);
 
-    @PostMapping("/ucenter/role/delete")
+    @PostMapping("/role/delete")
     ApiResult<Boolean> deleteRole(@RequestBody List<Long> ids);
 }

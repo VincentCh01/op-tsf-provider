@@ -238,6 +238,7 @@ public class UcenterApplication implements IUcenterApplication {
     @Transactional
     public int updateRole(RoleCreateVO req) {
         AuthTokenVO tokenVO = UserContext.getUser();
+        
         Role role = new Role();
         role.setId(req.getId());
         role.setName(req.getName());

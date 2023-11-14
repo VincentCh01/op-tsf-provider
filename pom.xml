@@ -19,6 +19,7 @@
     </parent>
 
     <artifactId>op-tsf-provider</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
 
     <distributionManagement>
         <repository>

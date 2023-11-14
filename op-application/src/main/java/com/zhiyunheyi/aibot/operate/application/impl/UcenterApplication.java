@@ -252,6 +252,7 @@ public class UcenterApplication implements IUcenterApplication {
                 RoleMenu roleRes = new RoleMenu();
                 roleRes.setMenuId(menuId);
                 roleRes.setRoleId(role.getId());
+                roleRes.setCreatedBy(tokenVO.getUserId());
                 roleRes.setUpdatedBy(tokenVO.getUserId());
                 roleMenuList.add(roleRes);
             }

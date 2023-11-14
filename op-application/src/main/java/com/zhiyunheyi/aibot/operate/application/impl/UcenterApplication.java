@@ -243,7 +243,7 @@ public class UcenterApplication implements IUcenterApplication {
         role.setName(req.getName());
         role.setType(req.getType());
         role.setDesc(req.getDesc());
-        role.setUpdatedBy(tokenVO.getUserId() == null ? 10000L : tokenVO.getUserId());
+        role.setUpdatedBy(tokenVO.getUserId());
 
         if (!CollectionUtils.isEmpty(req.getMenuIds())) {
             this.roleMenuService.deleteByRoleId(Lists.newArrayList(role.getId()));
@@ -252,8 +252,8 @@ public class UcenterApplication implements IUcenterApplication {
                 RoleMenu roleRes = new RoleMenu();
                 roleRes.setMenuId(menuId);
                 roleRes.setRoleId(role.getId());
-                roleRes.setCreatedBy(tokenVO.getUserId() == null ? 10000L : tokenVO.getUserId());
-                roleRes.setUpdatedBy(tokenVO.getUserId() == null ? 10000L : tokenVO.getUserId());
+                roleRes.setCreatedBy(tokenVO.getUserId());
+                roleRes.setUpdatedBy(tokenVO.getUserId());
                 roleMenuList.add(roleRes);
             }
 
@@ -267,8 +267,8 @@ public class UcenterApplication implements IUcenterApplication {
                 RoleRes roleRes = new RoleRes();
                 roleRes.setResId(resourceId);
                 roleRes.setRoleId(role.getId());
-                roleRes.setCreatedBy(tokenVO.getUserId() == null ? 10000L : tokenVO.getUserId());
-                roleRes.setUpdatedBy(tokenVO.getUserId() == null ? 10000L : tokenVO.getUserId());
+                roleRes.setCreatedBy(tokenVO.getUserId());
+                roleRes.setUpdatedBy(tokenVO.getUserId());
                 roleResList.add(roleRes);
             }
 

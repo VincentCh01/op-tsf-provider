@@ -20,15 +20,6 @@
 
     <artifactId>op-tsf-provider</artifactId>
 
-    <distributionManagement>
-        <repository>
-            <!--必须与 settings.xml 的 id 一致-->
-            <id>zhiyunheyi-tsf-api</id>
-            <name>api</name>
-            <url>https://zhiyunheyi-maven.pkg.coding.net/repository/tsf/api/</url>
-        </repository>
-    </distributionManagement>
-
     <build>
         <plugins>
             <plugin>

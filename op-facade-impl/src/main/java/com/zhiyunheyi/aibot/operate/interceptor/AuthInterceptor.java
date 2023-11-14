@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 
 /**
@@ -93,8 +94,15 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         List<ResourceDTO> resourceDTOList = result.getData();
         for (ResourceDTO resourceDTO : resourceDTOList) {
-            if (resourceDTO.getUrl().equals(request.getRequestURI())) {
+            String url = resourceDTO.getUrl();
+            if (url.equals(request.getRequestURI())) {
                 return true;
+            }
+
+            if (url.contains("*")) {
+                if (Pattern.compile(url).matcher(request.getRequestURI()).matches()) {
+                    return true;
+                }
             }
         }
 

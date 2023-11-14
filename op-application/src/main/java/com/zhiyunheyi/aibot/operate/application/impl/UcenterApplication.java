@@ -238,13 +238,12 @@ public class UcenterApplication implements IUcenterApplication {
     @Transactional
     public int updateRole(RoleCreateVO req) {
         AuthTokenVO tokenVO = UserContext.getUser();
-        
         Role role = new Role();
         role.setId(req.getId());
         role.setName(req.getName());
         role.setType(req.getType());
         role.setDesc(req.getDesc());
-        role.setUpdatedBy(tokenVO.getUserId());
+        role.setUpdatedBy(tokenVO.getUserId() == null ? 10000L : tokenVO.getUserId());
 
         if (!CollectionUtils.isEmpty(req.getMenuIds())) {
             this.roleMenuService.deleteByRoleId(Lists.newArrayList(role.getId()));
@@ -253,8 +252,8 @@ public class UcenterApplication implements IUcenterApplication {
                 RoleMenu roleRes = new RoleMenu();
                 roleRes.setMenuId(menuId);
                 roleRes.setRoleId(role.getId());
-                roleRes.setCreatedBy(tokenVO.getUserId());
-                roleRes.setUpdatedBy(tokenVO.getUserId());
+                roleRes.setCreatedBy(tokenVO.getUserId() == null ? 10000L : tokenVO.getUserId());
+                roleRes.setUpdatedBy(tokenVO.getUserId() == null ? 10000L : tokenVO.getUserId());
                 roleMenuList.add(roleRes);
             }
 
@@ -268,8 +267,8 @@ public class UcenterApplication implements IUcenterApplication {
                 RoleRes roleRes = new RoleRes();
                 roleRes.setResId(resourceId);
                 roleRes.setRoleId(role.getId());
-                roleRes.setCreatedBy(tokenVO.getUserId());
-                roleRes.setUpdatedBy(tokenVO.getUserId());
+                roleRes.setCreatedBy(tokenVO.getUserId() == null ? 10000L : tokenVO.getUserId());
+                roleRes.setUpdatedBy(tokenVO.getUserId() == null ? 10000L : tokenVO.getUserId());
                 roleResList.add(roleRes);
             }
 

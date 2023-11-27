@@ -133,7 +133,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                                     && tokenDTO.getTimestamp() > System.currentTimeMillis()
                             , String.format("token明文异常: %s", JSON.toJSONString(tokenDTO)));
 
-                    Preconditions.checkArgument(token.equals(redisUtil.get(String.format(REDIS_TOKEN_KEY, tokenDTO.getUserId()))));
+//                    Preconditions.checkArgument(token.equals(redisUtil.get(String.format(REDIS_TOKEN_KEY, tokenDTO.getUserId()))));
                     tokenDTO.setToken(token);
                     UserContext.setUser(tokenDTO);
 

@@ -18,7 +18,7 @@ import java.util.List;
  * @Created Date: 2023/11/8 17:33
  * @Version: 1.0.0-SNAPSHOT
  */
-@FeignClient(name = "operate-user", qualifier="ucenterCommand")
+@FeignClient(name = "operate-user", contextId = "ucenterCommand")
 @RequestMapping("/ucenter")
 public interface IUcenterCommandFacade {
     @PostMapping("/userInfo/insert")
